@@ -59,6 +59,11 @@ Delete an object:
 
 	$dpcache->delete($key);
 	
+At any time, through the administrative page, you can:
+
+* see all objects in the current user cache
+* delete all objects in the current user cache
+	
 License
 -------
 D(ifferent)P(lace) Simple Cache is released under the W3C Software Notice and License 
