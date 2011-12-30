@@ -1,7 +1,7 @@
-DP URL Shortner
+DP Simple Cache
 ===============
 
-D(ifferent)P(lace) Simple Cache is a WordPress plugin to implement a simple cache of objects.
+D(ifferent)P(lace) Simple Cache is a WordPress plugin to implement a simple cache of objects at session level.
 
 Versions
 --------
@@ -11,7 +11,7 @@ This version is released only for testing purposes. It can be used as long as yo
 Known Issues
 ------------
 ###Rel. 0.1
-* TBD
+* None
 
 Prerequisites
 -------------
@@ -25,7 +25,39 @@ Copy the folder dpwpsimplecache and its content into
 
 Usage
 -----
-TBD
+dpwpsimplecache provides a global variable $dpcache, which is an instantiation of the class DP_Cache already set up to talk to the $_SESSION. Always use the global $dpcache variable. (Remember to globalize $dpcache before using it in any custom functions.)
+
+Insert object;
+
+	$dpcache->set($key,$object);
+	
+Get object:
+
+	$object = $dpcache->set($key);
+	
+Count objects:
+
+	$dpcache->get_statistics();
+	
+Get all objects:
+
+	$dpcache->get_all_values();
+	
+Test if an object exist:
+
+	$dpcache->contais($key);
+	
+Delete all objects:
+
+	$dpcache->flush();
+	
+Prints human-readable information about all objects:
+
+	$dpcache->inspect();
+	
+Delete an object:
+
+	$dpcache->delete($key);
 	
 License
 -------
