@@ -53,11 +53,11 @@ Count objects in the current user's $_SESSION:
 
 	$dpcache->get_statistics();
 	
-Get all objects the current user's $_SESSION:
+Get all objects in the current user's $_SESSION:
 
 	$dpcache->get_all_values();
 	
-Test if an object exist the current user's $_SESSION:
+Test if an object exist in the current user's $_SESSION:
 
 	$dpcache->contais($key);
 	
