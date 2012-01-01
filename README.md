@@ -8,9 +8,14 @@ Versions
 ###Rel. 0.1
 This version is released only for testing purposes. It can be used as long as you know what you are doing.
 
+###Rel. 0.2
+This version add a custom table for session management. It can be used as long as you know what you are doing.
+
 Known Issues
 ------------
 ###Rel. 0.1
+* None
+###Rel. 0.2
 * None
 
 Prerequisites
@@ -35,27 +40,31 @@ Get object:
 
 	$object = $dpcache->set($key);
 	
-Count objects:
+Count active users:
+
+	$count_users = $dpcache->get_sessions_number();
+	
+Count objects in the current user's $_SESSION:
 
 	$dpcache->get_statistics();
 	
-Get all objects:
+Get all objects the current user's $_SESSION:
 
 	$dpcache->get_all_values();
 	
-Test if an object exist:
+Test if an object exist the current user's $_SESSION:
 
 	$dpcache->contais($key);
 	
-Delete all objects:
+Delete all objects. If the $all parameter is set to false the method delete only the current user's $_SESSION, if true truncate the entire table (default false):
 
-	$dpcache->flush();
+	$dpcache->flush($all);
 	
 Prints human-readable information about all objects:
 
 	$dpcache->inspect();
 	
-Delete an object:
+Delete an object the current user's $_SESSION:
 
 	$dpcache->delete($key);
 	
@@ -63,6 +72,7 @@ At any time, through the administrative page, you can:
 
 * see all objects in the current user cache
 * delete all objects in the current user cache
+* forcing deletion of all sessions
 	
 License
 -------

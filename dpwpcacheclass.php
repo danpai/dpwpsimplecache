@@ -30,8 +30,19 @@ class DP_Cache {
     	return $count;
     }
     
-    function get_all_values(){
-    	
+    function get_sessions_number(){
+    	global $wpdb;
+    	global $USE_DB_SESSION_MANAGER;
+    	if($USE_DB_SESSION_MANAGER){
+    		$tablename = $wpdb->prefix . "sessions";
+    		return $wpdb->get_var("SELECT COUNT(*) FROM " . $tablename);
+    	}
+    	else{
+    		$this->get_statistics();
+    	}
+    }
+    
+    function get_all_values(){   	
     	$cached_element = array();
     	foreach ($_SESSION as $key => $value){
     		if(strpos($key,"#$@" . $_SERVER['SERVER_NAME']) !== false){
@@ -48,12 +59,21 @@ class DP_Cache {
     	return array_key_exists("#$@" . $_SERVER['SERVER_NAME'] . $key, $_SESSION);
     }
     
-    function flush(){
-    	
-    	foreach ($_SESSION as $key => $value){
-    		if(strpos($key,"#$@" . $_SERVER['SERVER_NAME']) !== false){
-    			unset($_SESSION[$key]);
+    function flush($all=false){
+    	global $wpdb;
+    	global $USE_DB_SESSION_MANAGER;
+    	if(!$all || !$USE_DB_SESSION_MANAGER){  	
+    		foreach ($_SESSION as $key => $value){
+    			if(strpos($key,"#$@" . $_SERVER['SERVER_NAME']) !== false){
+    				unset($_SESSION[$key]);
+    			}
     		}
+    	}
+    	else {
+    		$date = new DateTime();
+			$tablename = $wpdb->prefix . "sessions";
+			$query = "truncate table " . $tablename;
+			$wpdb->query($query);
     	}
     }
     
