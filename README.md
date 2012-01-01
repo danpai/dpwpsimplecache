@@ -30,7 +30,12 @@ Copy the folder dpwpsimplecache and its content into
 
 Usage
 -----
-dpwpsimplecache provides a global variable $dpcache, which is an instantiation of the class DP_Cache already set up to talk to the $_SESSION. Always use the global $dpcache variable. (Remember to globalize $dpcache before using it in any custom functions.)
+dpwpsimplecache provides a global variable $dpcache, which is an instantiation of the class DP_Cache already set up to talk to the $_SESSION. Always use the global $dpcache variable (Remember to globalize $dpcache before using it in any custom functions). 
+
+If you don't want to track sessions into db set the $USE_DB_SESSION_MANAGER global variable to 0
+
+	global $USE_DB_SESSION_MANAGER;
+	$USE_DB_SESSION_MANAGER = 0; // default 1
 
 Insert object;
 

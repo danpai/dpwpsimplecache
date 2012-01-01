@@ -2,6 +2,7 @@
 
 function dpscache_manage_option_page(){
 	global $dpcache;
+	global $USE_DB_SESSION_MANAGER;
 	$cached_elements;
 	$cache_action;
 	$inner_html = "";
@@ -33,10 +34,12 @@ function dpscache_manage_option_page(){
 			<input type="hidden" name="cache_action" value="delete"><br>
 			<input type="submit" value="Delete My Session Content" style="margin:10px 0 0 30px; width:200px">
 		</form>
+		<?php if($USE_DB_SESSION_MANAGER){ ?>
 		<form method="POST" action="">
 			<input type="hidden" name="cache_action" value="deleteall"><br>
 			<input type="submit" value="Delete All Sessions Content" style="margin:10px 0 0 30px; width:200px">
 		</form>
+		<?php } ?>
 		<br>
 		<?php echo $inner_html; ?>
 	</div>
