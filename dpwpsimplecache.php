@@ -1,14 +1,14 @@
 <?php
 /**
  * @package dpwpsimplecache
- * @version 0.3.2
+ * @version 0.4
  */
 /*
 Plugin Name: DP Simple Cache
 Plugin URI: https://github.com/danpai/dpwpsimplecache
 Description: WordPress plugin to implement a simple cache of objects
 Author: Danilo Paissan
-Version: 0.3.2
+Version: 0.4
 Author URI: http://danilopaissan.net
 License: W3C Software Notice and License 
 
@@ -46,7 +46,7 @@ function dpscache_deactivate() {
 function dpscache_uninstall() {}
 
 function dpscache_add_menu(){
-	add_options_page( 'DP Simple Cache', 'Simple Cache','manage_options', __FILE__, 'dpscache_manage_option_page' );
+	add_options_page( 'DP Simple Cache', 'Simple Cache','manage_options', 'simple_cache', 'dpscache_manage_option_page' );
 }
 
 function dpscache_init() {	
@@ -75,11 +75,17 @@ function dpscache_create_session($tablename){
 	$wpdb->query($wpdb->prepare($query,$session_name,$_SERVER['REMOTE_ADDR']));
 }
 
-function dpscache_update_session($session_name,$tablename){
+function dpscache_delete_sessions_expired($tablename){
 	global $wpdb;
 	$date = new DateTime();
 	$query = "delete from " . $tablename . " where expire < '" . $date->format("Y-m-d H:i:s") . "'";
 	$wpdb->query($query);
+}
+
+function dpscache_update_session($session_name,$tablename){
+	global $wpdb;
+	
+	dpscache_delete_sessions_expired($tablename);
 	
 	$session_found = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM " . $tablename . " where id='" . $session_name . "'" ) );
 	
@@ -110,6 +116,11 @@ function dpscache_create_session_table(){
 
     	dbDelta($sql);
 	}
+}
+
+function dpscache_active_users(){
+	global $dpcache;
+	echo $dpcache->get_sessions_number();
 }
 
 add_action('init', 'dpscache_init');

@@ -3,24 +3,20 @@
 class DP_Cache {
         
     function set($key, $data) {
-    	
         $_SESSION["#$@" . $_SERVER['SERVER_NAME'] . $key] = base64_encode(serialize($data));
     }
 
     
-    function get($key) {
-    	
+    function get($key) { 	
         return unserialize(base64_decode($_SESSION["#$@" . $_SERVER['SERVER_NAME'] . $key]));
     }
 
         
     function delete($key) {
-    	
         unset($_SESSION["#$@" . $_SERVER['SERVER_NAME'] . $key]);
     }
     
-    function get_statistics(){
-    	
+    function get_statistics(){   	
     	$count = 0;
     	foreach ($_SESSION as $key => $value){
     		if(strpos($key,"#$@" . $_SERVER['SERVER_NAME']) !== false){
@@ -50,6 +46,29 @@ class DP_Cache {
     		}
     	}
     	return $cached_element;
+    }
+    
+    function get_all_sessions(){
+    	global $wpdb;
+    	global $USE_DB_SESSION_MANAGER;
+    	$result;
+    	if($USE_DB_SESSION_MANAGER){
+    		$tablename = $wpdb->prefix . "sessions";
+    		dpscache_delete_sessions_expired($tablename);
+    		$query = "select id, expire, ip from " . $tablename;
+    		$result = $wpdb->get_results($query, ARRAY_A);
+    	}
+    	return $result;
+    }
+    
+    function invalidate_single_session($sessid){
+    	global $wpdb;
+    	global $USE_DB_SESSION_MANAGER;
+    	if($USE_DB_SESSION_MANAGER){
+    		$tablename = $wpdb->prefix . "sessions";
+    		$query = "delete from " . $tablename . " where id=%s";
+    		$wpdb->query($wpdb->prepare($query,$sessid));
+    	}
     }
     
     function contais($key){
