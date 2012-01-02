@@ -1,14 +1,14 @@
 <?php
 /**
  * @package dpwpsimplecache
- * @version 0.2
+ * @version 0.3
  */
 /*
 Plugin Name: DP Simple Cache
 Plugin URI: https://github.com/danpai/dpwpsimplecache
 Description: WordPress plugin to implement a simple cache of objects
 Author: Danilo Paissan
-Version: 0.2
+Version: 0.3
 Author URI: http://danilopaissan.net
 License: W3C Software Notice and License 
 
@@ -69,10 +69,10 @@ function dpscache_create_session($tablename){
 	session_start();
 	$session_name = session_id();
 	$date = new DateTime();
-		
+	$date->modify("-10 minutes");
 	//delete expired sessions
-	$query = "delete from " . $tablename . " where expire < " . $date->format("Y-m-d H:i:s");
-	$date->modify("+10 minutes");	    
+	$query = "delete from " . $tablename . " where expire < '" . $date->format("Y-m-d H:i:s") . "'";
+	$date->modify("+20 minutes");	    
 	$query = "insert into " . $tablename . " (id,expire,ip) values (%s,'" . $date->format("Y-m-d H:i:s") . "',%s)";
 	$wpdb->query($wpdb->prepare($query,$session_name,$_SERVER['REMOTE_ADDR']));
 }
