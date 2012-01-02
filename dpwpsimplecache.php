@@ -1,14 +1,14 @@
 <?php
 /**
  * @package dpwpsimplecache
- * @version 0.3
+ * @version 0.3.2
  */
 /*
 Plugin Name: DP Simple Cache
 Plugin URI: https://github.com/danpai/dpwpsimplecache
 Description: WordPress plugin to implement a simple cache of objects
 Author: Danilo Paissan
-Version: 0.3
+Version: 0.3.2
 Author URI: http://danilopaissan.net
 License: W3C Software Notice and License 
 
