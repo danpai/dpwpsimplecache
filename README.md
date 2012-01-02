@@ -69,7 +69,7 @@ Prints human-readable information about all objects:
 
 	$dpcache->inspect();
 	
-Delete an object the current user's $_SESSION:
+Delete an object in the current user's $_SESSION:
 
 	$dpcache->delete($key);
 	
