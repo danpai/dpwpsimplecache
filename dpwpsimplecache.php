@@ -69,10 +69,10 @@ function dpscache_create_session($tablename){
 	session_start();
 	$session_name = session_id();
 	$date = new DateTime();
-	$date->modify("-10 minutes");
 	//delete expired sessions
 	$query = "delete from " . $tablename . " where expire < '" . $date->format("Y-m-d H:i:s") . "'";
-	$date->modify("+20 minutes");	    
+	$wpdb->query($query);
+	$date->modify("+10 minutes");	    
 	$query = "insert into " . $tablename . " (id,expire,ip) values (%s,'" . $date->format("Y-m-d H:i:s") . "',%s)";
 	$wpdb->query($wpdb->prepare($query,$session_name,$_SERVER['REMOTE_ADDR']));
 }

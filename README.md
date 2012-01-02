@@ -12,15 +12,23 @@ This version is released only for testing purposes. It can be used as long as yo
 This version add a custom table for session management. It can be used as long as you know what you are doing.
 
 ###Rel. 0.3
-SQL error fixed
+SQL errors fixed
+
+###Rel. 0.3.1
+SQL errors fixed
 
 Known Issues
 ------------
 ###Rel. 0.1
 * None
+
 ###Rel. 0.2
 * Error in session delete query
+
 ###Rel. 0.3
+* Error in session delete query
+
+###Rel. 0.3.1
 * None
 
 Prerequisites
