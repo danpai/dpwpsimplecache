@@ -70,8 +70,6 @@ function dpscache_create_session($tablename){
 	$session_name = session_id();
 	$date = new DateTime();
 	//delete expired sessions
-	$query = "delete from " . $tablename . " where expire < '" . $date->format("Y-m-d H:i:s") . "'";
-	$wpdb->query($query);
 	$date->modify("+10 minutes");	    
 	$query = "insert into " . $tablename . " (id,expire,ip) values (%s,'" . $date->format("Y-m-d H:i:s") . "',%s)";
 	$wpdb->query($wpdb->prepare($query,$session_name,$_SERVER['REMOTE_ADDR']));
@@ -79,6 +77,10 @@ function dpscache_create_session($tablename){
 
 function dpscache_update_session($session_name,$tablename){
 	global $wpdb;
+	$date = new DateTime();
+	$query = "delete from " . $tablename . " where expire < '" . $date->format("Y-m-d H:i:s") . "'";
+	$wpdb->query($query);
+	
 	$session_found = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM " . $tablename . " where id='" . $session_name . "'" ) );
 	
 	if(!$session_found)

@@ -17,6 +17,9 @@ SQL errors fixed
 ###Rel. 0.3.1
 SQL errors fixed
 
+###Rel. 0.3.2
+Algorithm fixed
+
 Known Issues
 ------------
 ###Rel. 0.1
@@ -29,6 +32,9 @@ Known Issues
 * Error in session delete query
 
 ###Rel. 0.3.1
+* Error in session delete query 
+
+###Rel. 0.3.2
 * None
 
 Prerequisites
